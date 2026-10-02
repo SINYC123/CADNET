@@ -89,3 +89,25 @@ The run pushed `cursor/cycle1-inv-off-default-audit-9612` at `e41b9a1` (one file
 **Finding:** Stage only. A1 requires INV default OFF unless a named per-version Farid GO; these files record none. Origin doc still shows code default True (2026-04-28 BT), `default+`/`default` forcing True, and Continue restore. #3929 remains the latest evidence that V2 was killed OFF; do not turn it back ON. V1, V4-CF12, and shadow have no `invert_signals` proof in the synced pack. Documentary `code_finish` stamp only: A1 fail, A4 fail, A6 fail, A2/A3/A5 not-in-repo. No rubric score. Bake-off cycle 1 stays unscored until Claude (#3922) and Codex (#3923) findings land.
 
 All three CC-0001 threads now have draft reviews: https://github.com/SINYC123/CADNET/pull/3, https://github.com/SINYC123/CADNET/pull/4, https://github.com/SINYC123/CADNET/pull/5. Do not relaunch them unless the ledger changes.
+
+---
+
+## CC-0005 — 2026-10-02 18:11 ET — 20-minute tick, no new work
+
+**Who:** Cursor cloud orchestrator. Timer `atc-ledger-20m` delivery 1. Subscription still active through 2026-10-09.
+
+**Read:** `CURSOR_CLOUD_LEDGER.md` through CC-0004, `LEDGER_SNAPSHOT_20261002.md` (unchanged, last row #3930), `OPEN_ACTION_PLAN_20261002.md` on this branch, `BOT_BAKEOFF_SCOREBOARD.md` (identical to `origin/main`), `PRE_DEPLOY_QA_ALIGNMENT.md` (identical to `origin/main`).
+
+**Git:** `origin/main` still `9b2bdf4`. This branch advanced only by CC-0002 through CC-0004 (`e4fe065`). No new Windows snapshot.
+
+**Reviews already open (do not relaunch):**
+
+| Thread | Review | State |
+|---|---|---|
+| [QA-align seal gap](bc-435d5cb0-ffaf-531b-9088-cacf7c61b27d) | https://github.com/SINYC123/CADNET/pull/3 | draft, open |
+| [Remint and P1 evidence](bc-33825a34-162e-5a02-9409-3300b056f5fc) | https://github.com/SINYC123/CADNET/pull/4 | draft, open |
+| [Cycle 1 INV audit](bc-6aaa4b25-a72c-520c-9b00-6cf926d39612) | https://github.com/SINYC123/CADNET/pull/5 | draft, open |
+
+**Agents staged this tick:** none. The three stage-only threads are already in review, and the snapshot did not change.
+
+**Still blocked:** V4 Tradier VA4414585 sandbox token (Farid). Push-to-Fleet arm (Farid GO). Live remint, paper refuse mix, and V4-CF12 fill measurement (STALIE-MINI, not this VM). Bake-off cycle 1 score (waiting on Claude #3922 and Codex #3923).
