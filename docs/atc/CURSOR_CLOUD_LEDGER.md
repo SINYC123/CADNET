@@ -36,11 +36,13 @@ Mode for every tick: **stage for review**. No live APPLY, no paper promote, no P
 
 Three cloud agents, disjoint output paths, draft PRs for review. Count matches the three independent stage-only threads above. No fourth agent for the Tradier token or fleet arm.
 
-| Agent | Output path | Review |
+| Agent | Output path | Run |
 |---|---|---|
-| Cycle 1 INV audit | `docs/atc/staged/20261002/cursor_cycle1_inv_off_default.md` | draft PR |
-| QA-align seal gap | `docs/atc/staged/20261002/qa_align_seal_gap.md` | draft PR |
-| Remint preflight + P1 evidence | `docs/atc/staged/20261002/remint_f37_and_p1_evidence.md` | draft PR |
+| Cycle 1 INV audit | `docs/atc/staged/20261002/cursor_cycle1_inv_off_default.md` | [Cycle 1 INV audit](bc-6aaa4b25-a72c-520c-9b00-6cf926d39612) |
+| QA-align seal gap | `docs/atc/staged/20261002/qa_align_seal_gap.md` | [QA-align seal gap](bc-435d5cb0-ffaf-531b-9088-cacf7c61b27d) |
+| Remint preflight + P1 evidence | `docs/atc/staged/20261002/remint_f37_and_p1_evidence.md` | [Remint and P1 evidence](bc-33825a34-162e-5a02-9409-3300b056f5fc) |
+
+Orchestrator review PR for this tick: https://github.com/SINYC123/CADNET/pull/2 (draft). Agent draft PRs land separately when those runs finish. Do not launch duplicates of these three threads until those PRs are reviewed or the underlying ledger rows change.
 
 ### Loop
 
