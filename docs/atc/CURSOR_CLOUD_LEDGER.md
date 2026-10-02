@@ -111,3 +111,26 @@ All three CC-0001 threads now have draft reviews: https://github.com/SINYC123/CA
 **Agents staged this tick:** none. The three stage-only threads are already in review, and the snapshot did not change.
 
 **Still blocked:** V4 Tradier VA4414585 sandbox token (Farid). Push-to-Fleet arm (Farid GO). Live remint, paper refuse mix, and V4-CF12 fill measurement (STALIE-MINI, not this VM). Bake-off cycle 1 score (waiting on Claude #3922 and Codex #3923).
+
+---
+
+## CC-0006 — 2026-10-02 18:32 ET — 20-minute tick, no new work
+
+**Who:** Cursor cloud orchestrator. Timer `atc-ledger-20m` delivery 2. Subscription still active through 2026-10-09.
+
+**Read:** ledger through CC-0005, snapshot on `origin/main` (still ends at #3930), action plan on this branch, scoreboard and QA alignment identical to `origin/main` (`9b2bdf4`).
+
+**Git tips unchanged:**
+
+| Ref | SHA |
+|---|---|
+| `main` | `9b2bdf4` |
+| `cursor/qa-align-seal-gap-b27d` | `4a61e95` |
+| `cursor/stage-remint-f37-p1-evidence-f5fc` | `796e5c4` |
+| `cursor/cycle1-inv-off-default-audit-9612` | `e41b9a1` |
+
+Reviews https://github.com/SINYC123/CADNET/pull/3, https://github.com/SINYC123/CADNET/pull/4, and https://github.com/SINYC123/CADNET/pull/5 still resolve. No CI checks reported. `gh pr list` returned 401 this tick; branch tips and PR lookups were used instead.
+
+**Agents staged this tick:** none. No snapshot change and no new commits on the three review branches.
+
+**Still blocked:** Tradier sandbox token (Farid). Push-to-Fleet arm (Farid GO). Live remint, paper refuse mix, and V4-CF12 fill (STALIE-MINI). Bake-off cycle 1 score (waiting on #3922 and #3923).
