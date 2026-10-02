@@ -185,3 +185,27 @@ No new branch and no new snapshot. Reviews https://github.com/SINYC123/CADNET/pu
 **Agents staged this tick:** none.
 
 **Still blocked:** Tradier sandbox token (Farid). Push-to-Fleet arm (Farid GO). Live remint, paper refuse mix, and V4-CF12 fill (STALIE-MINI). Bake-off cycle 1 score (waiting on #3922 and #3923).
+
+---
+
+## CC-0009 — 2026-10-02 19:35 ET — 20-minute tick, no new work
+
+**Who:** Cursor cloud orchestrator. Timer `atc-ledger-20m` delivery 5. Subscription still active through 2026-10-09.
+
+**Read:** ledger through CC-0008, snapshot on `origin/main` (still ends at #3930), action plan on this branch, scoreboard and QA alignment identical to `origin/main` (`9b2bdf4`).
+
+**Remote heads (only these five):**
+
+| Ref | SHA |
+|---|---|
+| `main` | `9b2bdf4` |
+| `cursor/atc-ledger-20m-46d8` | `a340f16` |
+| `cursor/qa-align-seal-gap-b27d` | `4a61e95` |
+| `cursor/stage-remint-f37-p1-evidence-f5fc` | `796e5c4` |
+| `cursor/cycle1-inv-off-default-audit-9612` | `e41b9a1` |
+
+The only SHA change since CC-0008 is this ledger branch, from the prior tick. Reviews https://github.com/SINYC123/CADNET/pull/3, https://github.com/SINYC123/CADNET/pull/4, and https://github.com/SINYC123/CADNET/pull/5 still resolve. No CI checks reported.
+
+**Agents staged this tick:** none.
+
+**Still blocked:** Tradier sandbox token (Farid). Push-to-Fleet arm (Farid GO). Live remint, paper refuse mix, and V4-CF12 fill (STALIE-MINI). Bake-off cycle 1 score (waiting on #3922 and #3923). Remint deadline remains before 03:30 ET Saturday 2026-10-03; the preflight review is already open and was not relaunched.
