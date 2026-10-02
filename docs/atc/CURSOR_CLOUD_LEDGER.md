@@ -38,7 +38,7 @@ Three cloud agents, disjoint output paths, draft PRs for review. Count matches t
 
 | Agent | Output path | Run |
 |---|---|---|
-| Cycle 1 INV audit | `docs/atc/staged/20261002/cursor_cycle1_inv_off_default.md` | [Cycle 1 INV audit](bc-6aaa4b25-a72c-520c-9b00-6cf926d39612) |
+| Cycle 1 INV audit | `docs/atc/staged/20261002/cursor_cycle1_inv_off_default.md` | [Cycle 1 INV audit](bc-6aaa4b25-a72c-520c-9b00-6cf926d39612) — draft https://github.com/SINYC123/CADNET/pull/5 |
 | QA-align seal gap | `docs/atc/staged/20261002/qa_align_seal_gap.md` | [QA-align seal gap](bc-435d5cb0-ffaf-531b-9088-cacf7c61b27d) — draft https://github.com/SINYC123/CADNET/pull/3 |
 | Remint preflight + P1 evidence | `docs/atc/staged/20261002/remint_f37_and_p1_evidence.md` | [Remint and P1 evidence](bc-33825a34-162e-5a02-9409-3300b056f5fc) — draft https://github.com/SINYC123/CADNET/pull/4 |
 
@@ -75,3 +75,17 @@ The run pushed `cursor/stage-remint-f37-p1-evidence-f5fc` at `796e5c4` (one file
 **Finding:** #3910 still has Ready tasks pinned to `6EC1DEA3FD2749C0` and zero Ready carry of `F37DA134D15D15EC`. Overnight Recovery/Recheck next 2026-10-03 03:30/03:50. Remint stays on STALIE-MINI before 03:30 ET Saturday, and only after a fresh deploy receipt. Receipt tools are not in this repo. P1 paper, V4-CF12 fill, Tradier 401, and shadow s7/s8 stay evidence-only. No remint was run.
 
 No duplicate agent. Cycle 1 INV audit was still outstanding at this row.
+
+---
+
+## CC-0004 — 2026-10-02 18:03 ET — cycle 1 INV audit staged for review
+
+**Who:** Cursor cloud orchestrator, follow-up after [Cycle 1 INV audit](bc-6aaa4b25-a72c-520c-9b00-6cf926d39612) finished.
+
+The run pushed `cursor/cycle1-inv-off-default-audit-9612` at `e41b9a1` (one file: `docs/atc/staged/20261002/cursor_cycle1_inv_off_default.md`) and could not open a pull request from its own session. Orchestrator opened the draft.
+
+**Review:** https://github.com/SINYC123/CADNET/pull/5
+
+**Finding:** Stage only. A1 requires INV default OFF unless a named per-version Farid GO; these files record none. Origin doc still shows code default True (2026-04-28 BT), `default+`/`default` forcing True, and Continue restore. #3929 remains the latest evidence that V2 was killed OFF; do not turn it back ON. V1, V4-CF12, and shadow have no `invert_signals` proof in the synced pack. Documentary `code_finish` stamp only: A1 fail, A4 fail, A6 fail, A2/A3/A5 not-in-repo. No rubric score. Bake-off cycle 1 stays unscored until Claude (#3922) and Codex (#3923) findings land.
+
+All three CC-0001 threads now have draft reviews: https://github.com/SINYC123/CADNET/pull/3, https://github.com/SINYC123/CADNET/pull/4, https://github.com/SINYC123/CADNET/pull/5. Do not relaunch them unless the ledger changes.
