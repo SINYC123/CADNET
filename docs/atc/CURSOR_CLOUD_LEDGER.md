@@ -39,7 +39,7 @@ Three cloud agents, disjoint output paths, draft PRs for review. Count matches t
 | Agent | Output path | Run |
 |---|---|---|
 | Cycle 1 INV audit | `docs/atc/staged/20261002/cursor_cycle1_inv_off_default.md` | [Cycle 1 INV audit](bc-6aaa4b25-a72c-520c-9b00-6cf926d39612) |
-| QA-align seal gap | `docs/atc/staged/20261002/qa_align_seal_gap.md` | [QA-align seal gap](bc-435d5cb0-ffaf-531b-9088-cacf7c61b27d) |
+| QA-align seal gap | `docs/atc/staged/20261002/qa_align_seal_gap.md` | [QA-align seal gap](bc-435d5cb0-ffaf-531b-9088-cacf7c61b27d) — draft https://github.com/SINYC123/CADNET/pull/3 |
 | Remint preflight + P1 evidence | `docs/atc/staged/20261002/remint_f37_and_p1_evidence.md` | [Remint and P1 evidence](bc-33825a34-162e-5a02-9409-3300b056f5fc) |
 
 Orchestrator review PR for this tick: https://github.com/SINYC123/CADNET/pull/2 (draft). Agent draft PRs land separately when those runs finish. Do not launch duplicates of these three threads until those PRs are reviewed or the underlying ledger rows change.
@@ -47,3 +47,17 @@ Orchestrator review PR for this tick: https://github.com/SINYC123/CADNET/pull/2 
 ### Loop
 
 Recurring timer `atc-ledger-20m`, every 20 minutes. Each fire re-reads this ledger and the snapshot, launches agents only for new or still-open stage-only work that is not already in review, and appends the next `CC-` row.
+
+---
+
+## CC-0002 — 2026-10-02 18:01 ET — QA-align branch staged for review
+
+**Who:** Cursor cloud orchestrator, follow-up after [QA-align seal gap](bc-435d5cb0-ffaf-531b-9088-cacf7c61b27d) finished.
+
+The run pushed `cursor/qa-align-seal-gap-b27d` at `4a61e95` (one file: `docs/atc/staged/20261002/qa_align_seal_gap.md`) and could not open a pull request from its own session. Orchestrator opened the draft.
+
+**Review:** https://github.com/SINYC123/CADNET/pull/3
+
+**Finding:** Checklist markdown is in-repo. Confirm tool, require tool, `pre_deploy_audit.py`, `run_pre_deploy_audit.bat`, `REQUIRED_CHECKS.json`, receipts, `AGENTS.md`, `claude_link/PROTOCOL.md`, and `messages.jsonl` are absent. A1–A4 and A6 are not-verifiable here. A5 fails closed because the audit script and receipts are missing. This note is not a `code_finish` or `deploy` receipt.
+
+No duplicate agent. Cycle 1 INV audit and remint/P1 evidence were still running at this row.
