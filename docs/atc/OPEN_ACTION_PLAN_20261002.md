@@ -11,7 +11,7 @@ Status key: OPEN / PARTIAL / DONE / NEEDS-GO
 ### P0 — Direction safety (today class of mistake)
 | # | Item | Status | Blocker | Owner | Next |
 |---|------|--------|---------|-------|------|
-| 4 | V2 CHALLENGER INVERT_SIGNALS still ON | OPEN | Flag true in C:\ATC\CHALLENGER\atc_state.json; V3 LAB already OFF (#3920) | **Grok** APPLY hot-toggle; Farid if per-version approve-ON instead | Hot POST /api/gates inv=false on V2 :5051 (same path as V3), persist state; or Farid explicit approve-ON |
+| 4 | V2 CHALLENGER INVERT_SIGNALS still ON | DONE-SNAPSHOT | Ledger #3929 (12:57 ET): live gate_status.invert_signals=False on :5051; CHALLENGER atc_state.json false. Cloud VM cannot re-probe the port. | **Grok** live reconfirm on next Windows sync | Reconfirm gates + on-disk state still OFF before any later APPLY |
 | 7 | QA alignment MD + confirm-before-finish/deploy | PARTIAL | MD + ledger #3921 exist; confirm gates must be live on APPLY/mint | **Grok** finish wire; Claude/Codex must cite list | Verify C:\ATC\qa\PRE_DEPLOY_QA_ALIGNMENT.md blocks APPLY without stamp |
 
 ### P1 — Paper / V4 actually trading
@@ -26,7 +26,7 @@ Status key: OPEN / PARTIAL / DONE / NEEDS-GO
 | # | Item | Status | Blocker | Owner | Next |
 |---|------|--------|---------|-------|------|
 | 3 | Push-to-Fleet dry-run S1–S10 | OPEN | PROTOTYPE_NO_ARM; arming needs QA-align confirm + Farid GO | **Farid** GO when; **Grok** checklist | Checklist must include PRE_DEPLOY_QA_ALIGNMENT confirm before arm |
-| 6 | Codex #3886 needs-action | DONE-work / STALE-row | JOB A #3897+#3899 PASS; JOB B #3895 stage receipt; row never closed | **Grok** | Flip #3886 closed/verified; no reassign |
+| 6 | Codex #3886 needs-action | DONE | Ledger #3930 annotated #3886 SATISFIED. JOB A #3897+#3899; JOB B #3895. No reassign. | — | none |
 | 8 | Bake-off ChatGPT vs Claude vs Cursor | OPEN | Scoreboard exists; observation only | **Grok** score; Claude+Codex cycle tasks | Keep all; Cursor baseline; no firings |
 
 ### P3 — Overnight (already owned)
@@ -38,18 +38,22 @@ Status key: OPEN / PARTIAL / DONE / NEEDS-GO
 ---
 
 ## Recommended attack order (now → close)
-1. **Kill V2 INV** (or Farid approve-ON) — same class as V3; do not leave asymmetric.
-2. **Seal QA-align confirm gates** on APPLY/deploy paths (#3921 / PRE_DEPLOY_QA_ALIGNMENT.md).
-3. **Prove V4-CF12 first paper fill** now that window is open; watch :5056.
-4. **Measure paper V1–V3 refuse mix** post-BBO8; only ask Farid if still blocked.
+1. **Reconfirm V2 INV stays OFF** on the next Windows sync (#3929 DONE-SNAPSHOT). Do not toggle it again from this repo.
+2. **Seal QA-align confirm gates** on APPLY/deploy paths (#3921 / PRE_DEPLOY_QA_ALIGNMENT.md). In this repo: stage the gap only. The enforcer scripts are not synced here.
+3. **Prove V4-CF12 first paper fill** on the box (`:5056`). Cloud agents may only summarize ledger evidence.
+4. **Measure paper V1–V3 refuse mix** post-BBO8 on the box; only ask Farid if still blocked.
 5. **Farid: sandbox Tradier token** for VA4414585 → then Grok clears 401 + ABC V4 row proof.
-6. **Close ledger #3886** as satisfied; bake-off cycle-1 scoring continues observation-only.
+6. **#3886 is closed** (#3930). Bake-off cycle-1 scoring continues observation-only.
 7. **P2F arm** only after QA-align confirm + explicit Farid GO.
-8. **F37 remint** before 03:30 ET Sat.
+8. **F37 remint** before 03:30 ET Sat. Stage the preflight here; Grok executes on STALIE-MINI.
+
+## Cloud reconciliation (2026-10-02 17:55 ET)
+
+Cursor cloud read the 13:00 ET snapshot and updated items 4 and 6 above. No live port was measured. Three stage-only agents were opened for review (cycle 1 INV audit, QA-align gap, remint preflight + P1 evidence). See `CURSOR_CLOUD_LEDGER.md` CC-0001.
 
 ## Explicit non-goals without Farid GO
 - Gate loosen / Ultra Ratchet live enforce / paper promote of CF12 onto V1–V3
 - Push-to-Fleet live arm
 - Firing any bake-off bot
 
-Updated: 2026-10-02 12:55 ET
+Updated: 2026-10-02 17:55 ET (cloud reconciliation of #3929 and #3930; no live probe)
