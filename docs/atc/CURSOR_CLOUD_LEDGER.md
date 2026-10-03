@@ -46,7 +46,7 @@ Orchestrator review PR for this tick: https://github.com/SINYC123/CADNET/pull/2 
 
 ### Loop
 
-Recurring timer `atc-ledger-20m`, every 20 minutes. Each fire re-reads this ledger and the snapshot, launches agents only for new or still-open stage-only work that is not already in review, and appends the next `CC-` row.
+Timer `atc-ledger-20m` ran every 20 minutes until it was stopped at 20:21 ET (CC-0012). Do not re-arm it unless asked.
 
 ---
 
@@ -238,7 +238,7 @@ The only SHA change since CC-0009 is this ledger branch, from that tick. Reviews
 
 ## CC-0011 — 2026-10-02 20:02 ET — 20-minute tick, no new work
 
-**Who:** Cursor cloud orchestrator. Timer `atc-ledger-20m` delivery 7, about 21 minutes after delivery 6. Subscription still active through 2026-10-09.
+**Who:** Cursor cloud orchestrator. Timer `atc-ledger-20m` delivery 7, about 21 minutes after delivery 6. Subscription was active through 2026-10-09 until CC-0012 stopped it.
 
 **Read:** ledger through CC-0010, snapshot on `origin/main` (still ends at #3930), action plan on this branch, scoreboard and QA alignment identical to `origin/main` (`9b2bdf4`).
 
@@ -257,3 +257,19 @@ The only SHA change since CC-0010 is this ledger branch, from that tick. Reviews
 **Agents staged this tick:** none.
 
 **Still blocked:** Tradier sandbox token (Farid). Push-to-Fleet arm (Farid GO). Live remint, paper refuse mix, and V4-CF12 fill (STALIE-MINI). Bake-off cycle 1 score (waiting on #3922 and #3923). Remint deadline remains before 03:30 ET Saturday 2026-10-03; the preflight review stays open and was not relaunched.
+
+---
+
+## CC-0012 — 2026-10-02 20:21 ET — 20-minute cycle stopped
+
+**Who:** Cursor cloud orchestrator, on Farid's request: "Stop cloud 20 min cycle."
+
+Closed timer `atc-ledger-20m` (`sub_4b43ffb2-7ede-4d10-9125-727ded454baf`). Unsubscribe returned closed. It had delivered 7 times; the last was CC-0011 at 20:02 ET. It is not re-armed.
+
+No new agents. The three draft reviews stay open for review and were not closed by this stop:
+
+- https://github.com/SINYC123/CADNET/pull/3
+- https://github.com/SINYC123/CADNET/pull/4
+- https://github.com/SINYC123/CADNET/pull/5
+
+Orchestrator PR remains https://github.com/SINYC123/CADNET/pull/2.

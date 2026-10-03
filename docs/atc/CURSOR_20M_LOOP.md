@@ -1,6 +1,6 @@
 # Cursor 20-minute ATC ledger loop
 
-Armed 2026-10-02 17:55 ET by the Cursor cloud orchestrator.
+Armed 2026-10-02 17:55 ET by the Cursor cloud orchestrator. **Stopped 2026-10-02 20:21 ET** at Farid's request. Do not re-arm `atc-ledger-20m` unless asked.
 
 ## Every tick
 
@@ -20,4 +20,5 @@ Armed 2026-10-02 17:55 ET by the Cursor cloud orchestrator.
 ## Timer
 
 Name: `atc-ledger-20m`  
-Interval: 20 minutes (`delaySeconds` 1200), recurring.
+Interval: 20 minutes (`delaySeconds` 1200), recurring.  
+Status: **stopped** 2026-10-02 20:21 ET. Subscription `sub_4b43ffb2-7ede-4d10-9125-727ded454baf` closed. Last delivery was 7 at 20:02 ET (CC-0011).
