@@ -1,0 +1,100 @@
+{
+  "gate": "oct2-three-book",
+  "session": "2026-10-02",
+  "note": "Expected totals are the gate. They are not a measurement. The runner prints a computed total only after the listed file is present and hashed where a sha256 is set.",
+  "journal_closed": {
+    "path": "packs/oct2/journal_closed/batch_c_4162.jsonl",
+    "contains": "One JSON object per Batch C / ledger #4162 closed trade for 2026-10-02. Required keys: arm (V1, V2, or V3), symbol, pnl. The harness drops NVDA and INTC, then counts and sums. Do not send a single prebaked total object.",
+    "staliesource": "Export of the Batch C closed-trade set cited by Windows ledger #4162. That row is not in the CADNET snapshot (snapshot ends at #3930). Not the same figure as inv_price_v3 ACTUAL.",
+    "exclude_symbols": ["NVDA", "INTC"],
+    "expect": {
+      "combined": "-2647.77",
+      "arms": {
+        "V1": {"n": 8, "pnl": "255.87"},
+        "V2": {"n": 10, "pnl": "-1303.12"},
+        "V3": {"n": 23, "pnl": "-1600.52"}
+      }
+    }
+  },
+  "broker_day": {
+    "path": "packs/oct2/broker_day/day_pnl_20261002.jsonl",
+    "contains": "One JSON object per broker-day PnL line for 2026-10-02. Required keys: symbol (non-empty), pnl. The harness sums pnl. Broker sessions were left on STALIE by the 2026-10-02 pack receipt.",
+    "staliesource": "Broker day PnL export for 2026-10-02. No Windows path was in the synced CADNET docs. Do not substitute journal exit.pl or the scorer ACTUAL column.",
+    "expect": "-2208.95"
+  },
+  "scorer_actual": {
+    "expect": "-2041.95",
+    "column": "ACTUAL",
+    "argv": ["2026-10-02", "2026-10-02"],
+    "base_constant": "C:\\ATC\\claude_harness\\inv_20261002",
+    "bars_constant": "C:\\ATC\\claude_harness\\cf12_20261002\\data",
+    "scorer": {
+      "path": "packs/oct2/scorer/inv_price_v3.py",
+      "bytes": 12422,
+      "sha256": "ee3e9d0b5b4237468c8b40f8b8d3c4fb0952192b505ff55ceebe614f3fe988da",
+      "contains": "inv_price_v3.py dated 2026-10-02. Stdlib plus pandas. BASE and BARS still point at C:\\ATC\\.... The runner remaps only those two constants in a temp copy. Strategy logic is not edited."
+    },
+    "inputs": [
+      {
+        "path": "packs/oct2/journals/rows_V1.jsonl",
+        "bytes": 795643,
+        "sha256": "6df1932b33000344ef46d03f7e2f3bad18f92ea69788e3b4a6ef43445252c42a",
+        "contains": "V1 journal extract the pricer reads. Rows include flipped, pre_submit_side, submitted_side, filled_side, and exit pl. Account ids must already be redacted."
+      },
+      {
+        "path": "packs/oct2/journals/rows_V2.jsonl",
+        "bytes": 935476,
+        "sha256": "28ec1b991bd5e4d2c3451ae561023b0596b2c21d603941fa9b2051b11438740c",
+        "contains": "V2 journal extract, same row contract as rows_V1.jsonl."
+      },
+      {
+        "path": "packs/oct2/journals/rows_V3.jsonl",
+        "bytes": 919238,
+        "sha256": "23c33bb64f8618474f6dd7905e7f3c76914b63ba7a8f1870e527957ed27379b0",
+        "contains": "V3 journal extract, same row contract as rows_V1.jsonl."
+      },
+      {
+        "path": "packs/oct2/journals/v1_flip_state.json",
+        "bytes": 3212,
+        "sha256": "5419f167d15a1b431fca0d8663e3a630a48b020d9749db11e386c2470925c7a6",
+        "contains": "V1 flip policy and per-entry flip flags for 2026-10-02. account field replaced with REDACTED."
+      },
+      {
+        "path": "packs/oct2/journals/v2_flip_state.json",
+        "bytes": 4725,
+        "sha256": "b4f1edcf8b7f9fbc1aa9ce8976ce97e3acae0b4980ec49665e5a342f62b5233e",
+        "contains": "V2 flip policy and per-entry flip flags for 2026-10-02. account field replaced with REDACTED."
+      },
+      {
+        "path": "packs/oct2/journals/v3_flip_state.json",
+        "bytes": 8009,
+        "sha256": "e74fc3f7bb31f753e03df685ddf962b33ff7f6b28330b2951f8ceeabfa18de99",
+        "contains": "V3 flip policy and per-entry flip flags for 2026-10-02. account field replaced with REDACTED."
+      },
+      {
+        "path": "packs/oct2/journals/inv_price_v3_2026-10-02_2026-10-02.json",
+        "bytes": 707,
+        "sha256": "5b19381a0914ec555ca4a19fafb393a77c7572a9af700c77da20b4004e8f70e0",
+        "contains": "Scorer window summary JSON shipped in the pack. The runner copies journals to a temp dir before exec so a rewrite does not touch this file."
+      },
+      {
+        "path": "packs/oct2/bars_sample/bars10s_2026-10-02.csv.gz",
+        "bytes": 16264231,
+        "sha256": "e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5",
+        "contains": "One session of 10-second bid/ask bars for 2026-10-02, built from the relay raw Tradier WS tick journal. Tape window in the paired meta is 08:55:00 to 15:59:59 ET. Not 1-second bars and not an EODHD cache."
+      },
+      {
+        "path": "packs/oct2/bars_sample/meta_2026-10-02.json",
+        "bytes": 28434,
+        "sha256": "2c936fa18b061d4b2938c8db64c5968649793f3b6e57ec86da8d28e60d72c44a",
+        "contains": "Tape meta for bars10s_2026-10-02.csv.gz: source path, row count, tape start/end, per-symbol freshness."
+      },
+      {
+        "path": "packs/oct2/smoke_inv_price_v3_20261002.txt",
+        "bytes": 6934,
+        "sha256": "d27974cbc65797559e574ee1d7aea113fd5be7a016d6896996926df312156219",
+        "contains": "STALIE smoke print for the 2026-10-02 window. Reference text only. The gate reruns the scorer and reads the TOTAL ACTUAL column."
+      }
+    ]
+  }
+}
