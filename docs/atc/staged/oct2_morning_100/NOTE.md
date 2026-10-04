@@ -12,7 +12,9 @@ Draft only. This catalog does not arm a bot, does not merge, and does not change
 
 Staged trend notional stays **$100,000** from the first fill. The harness default of $50,000 is the wrong size for that lane. A resized dollar stays BLOCKED while the bar file is missing.
 
-The SPY waiver stays an exemption for earnings/news-strength names with high own RVOL and trend, through 10:30 only. Ordinary names keep the SPY check. Midday, FIX-BA, strength, and C30 stay held. `stage_forced_highest_conviction` stays unarmed.
+The SPY waiver stays an exemption for earnings/news-strength names with high own RVOL and trend, through 10:30 only. Ordinary names keep the SPY check. Midday, FIX-BA, strength, C30, and C30-age stay held. `stage_forced_highest_conviction` stays unarmed.
+
+`exit_owner_counterfactual.py` is the next propose-only overlay (`COUNTERFACTUAL`, `NOT_APPLIED`). It names `keep_peak_look` as the exit owner and leaves `as_traded_giveback` in place. It does not write an 08:30 bar and does not price a P&L. The book receipt is `BOOK_RECEIPT.md`: fresh sums are BLOCKED on this checkout (`computed=NONE`); `catalog.json` reference figures match the three targets and that citation is not a recompute. Short form: `RECEIPT.md`.
 
 ## Counts
 
