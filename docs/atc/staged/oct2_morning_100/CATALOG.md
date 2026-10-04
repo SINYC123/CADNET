@@ -2,7 +2,7 @@
 
 Draft only. `ARMED` is false. This file is the results table. Nothing here merges.
 
-Handoff S100: `build_bars10s_0830.py` writes 10s trade bars for 08:30–09:00 ET only from raw ticks. If those ticks are absent the status is `BLOCKED_INPUTS` (`BLOCKED_INPUTS.md`) and no bars are written. 09:30 stays the finder skip floor and is not a minimum bar count. The giveback counterfactual is `BLOCKED_INPUTS` when `bars10s` or a native REST quote tape is missing (`GIVEBACK_COUNTERFACTUAL.md`). Ultra Ratchet stays unarmed. The chandelier is untouched. Prior counts stay: 100 cells, 3 dollar-priced, 97 dollar BLOCKED, 1 hit (S001), 49 missing the 08:30 tape, 24 missing a SPY-gate record.
+Handoff S100: `build_bars10s_0830.py` writes 10s trade bars for 08:30–09:00 ET only from raw ticks. If those ticks are absent the status is `BLOCKED_INPUTS` (`BLOCKED_INPUTS.md`) and no bars are written. 09:30 stays the finder skip floor and is not a minimum bar count. The giveback counterfactual is `BLOCKED_INPUTS` when `bars10s` or a native REST quote tape is missing (`GIVEBACK_COUNTERFACTUAL.md`). The exit-owner overlay is propose-only (`EXIT_OWNER_COUNTERFACTUAL.md`, `RECEIPT.md`) and does not change these cell dollars. Ultra Ratchet stays unarmed. The chandelier is untouched. Prior counts stay: 100 cells, 3 dollar-priced, 97 dollar BLOCKED, 1 hit (S001), 49 missing the 08:30 tape, 24 missing a SPY-gate record.
 
 Time-bar legend: `HIT` is the one observed generator receipt. `SAME_CLOCK` reuses that entry clock and adds no dollar. `FAIL` is a reference book whose first journal fill is 11:09:03 ET. `BLOCKED` has no tape or no gate record.
 

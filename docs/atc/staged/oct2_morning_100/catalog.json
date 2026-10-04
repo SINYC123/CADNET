@@ -1647,5 +1647,51 @@
     },
     "ultra_ratchet_armed": false,
     "chandelier_untouched": true
+  },
+  "exit_owner_counterfactual": {
+    "mode": "COUNTERFACTUAL",
+    "apply": "NOT_APPLIED",
+    "status": "BLOCKED_INPUTS",
+    "counterfactual_pl": "BLOCKED",
+    "armed": false,
+    "proposed_exit_owner": "keep_peak_look",
+    "incumbent_exit_owner": "as_traded_giveback",
+    "trend_notional": 100000.0,
+    "gates_held": [
+      "midday",
+      "FIX-BA",
+      "strength",
+      "C30",
+      "C30-age"
+    ],
+    "hit_935": [
+      "S001"
+    ],
+    "only_by_1030": [],
+    "tape_0830_n": 49,
+    "tape_0830_status": "BLOCKED_INPUTS",
+    "unprofitable_giveback": [
+      {
+        "id": "S097",
+        "dollars": -2647.77,
+        "exit_look": "as_traded_giveback",
+        "kind": "reference"
+      },
+      {
+        "id": "S098",
+        "dollars": -2208.95,
+        "exit_look": "as_traded_giveback",
+        "kind": "reference"
+      },
+      {
+        "id": "S099",
+        "dollars": -2041.95,
+        "exit_look": "as_traded_giveback",
+        "kind": "reference"
+      }
+    ],
+    "ultra_ratchet_armed": false,
+    "chandelier_untouched": true,
+    "bars_written_to_disk": 0
   }
 }

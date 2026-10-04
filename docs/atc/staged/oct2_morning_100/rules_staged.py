@@ -40,7 +40,8 @@ RECORDED_PEAK_LOCK_KEEP = 0.80
 RECORDED_PEAK_LOCK_TAKE = 0.90
 
 # Gates this stage does not loosen. They stay held for ordinary names.
-GATES_HELD = ("midday", "FIX-BA", "strength", "C30")
+# C30-age is held with C30. This tuple is not a license to relax either one.
+GATES_HELD = ("midday", "FIX-BA", "strength", "C30", "C30-age")
 
 # Exit looks. Recorded startup keep/take is quoted, not retuned.
 # Ultra Ratchet is not armed. No chandelier parameter is written.
@@ -99,7 +100,7 @@ def _refuse_if_armed() -> None:
 
 
 def ordinary_gates_held() -> tuple[str, ...]:
-    """Midday, FIX-BA, strength, and C30 stay held for ordinary names."""
+    """Midday, FIX-BA, strength, C30, and C30-age stay held for ordinary names."""
     _refuse_if_armed()
     return GATES_HELD
 
@@ -133,7 +134,8 @@ def spy_blocks_name(
 
     The waiver is the high-own-RVOL/trend exemption for earnings/news-strength
     names only, and only through the 10:30 first-fill deadline.
-    Midday, FIX-BA, strength, and C30 are not touched.
+    Own RVOL alone, or trend alone, does not open it.
+    Midday, FIX-BA, strength, C30, and C30-age are not touched.
     """
     _refuse_if_armed()
     open_gate = minute <= FIRST_FILL_DEADLINE
@@ -169,6 +171,43 @@ def stage_forced_highest_conviction(candidates: list[dict] | None, *, filled_by_
     plan["symbol"] = best.get("symbol")
     plan["score"] = best.get("score")
     return plan
+
+
+def stage_exit_owner() -> dict:
+    """Propose the futuristic-fix exit owner. Does not submit or price.
+
+    COUNTERFACTUAL and NOT_APPLIED. The proposed owner is the keep-peak look.
+    The incumbent owner is the as-traded giveback. No peak and no P&L are filled in.
+    """
+    _refuse_if_armed()
+    if TREND_NOTIONAL != 100_000.0 or not TREND_NOTIONAL_LOCKED_FROM_FIRST_FILL:
+        raise ArmRefused("staged trend notional must stay 100000 from the first fill")
+    held = ordinary_gates_held()
+    for gate in ("midday", "FIX-BA", "strength", "C30", "C30-age"):
+        if gate not in held:
+            raise ArmRefused(f"refusing to drop held gate {gate}")
+    return {
+        "mode": "COUNTERFACTUAL",
+        "apply": "NOT_APPLIED",
+        "armed": False,
+        "submits": False,
+        "proposed_exit_owner": "keep_peak_look",
+        "incumbent_exit_owner": "as_traded_giveback",
+        "counterfactual_pl": "BLOCKED",
+        "peak_invented": False,
+        "first_fill_target_et": FIRST_FILL_TARGET.strftime("%H:%M"),
+        "first_fill_deadline_et": FIRST_FILL_DEADLINE.strftime("%H:%M"),
+        "trend_notional": TREND_NOTIONAL,
+        "harness_notional_default": HARNESS_NOTIONAL_DEFAULT,
+        "gates_held": list(held),
+        "spy_exemption": (
+            "opens only when own RVOL and trend are both strong, "
+            "the name is earnings or news, the lane is a trend lane, "
+            "and the clock is at or before 10:30 ET"
+        ),
+        "ultra_ratchet_armed": False,
+        "chandelier_untouched": True,
+    }
 
 
 def ratchet_status() -> dict:

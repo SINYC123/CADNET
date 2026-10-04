@@ -71,7 +71,10 @@ class RulesTest(unittest.TestCase):
                 earnings_or_news=True,
             )
         )
-        self.assertEqual(rules.ordinary_gates_held(), ("midday", "FIX-BA", "strength", "C30"))
+        self.assertEqual(
+            rules.ordinary_gates_held(),
+            ("midday", "FIX-BA", "strength", "C30", "C30-age"),
+        )
 
     def test_trend_notional_locked(self) -> None:
         self.assertEqual(rules.trend_notional_from_first_fill("earn_trend"), 100_000.0)
