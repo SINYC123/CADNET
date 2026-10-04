@@ -1,6 +1,8 @@
 # October 2 morning catalog — 100 staged cells
 
-Draft only. `ARMED` is false. This file is the results table.
+Draft only. `ARMED` is false. This file is the results table. Nothing here merges.
+
+Handoff S100: `build_bars10s_0830.py` writes 10s trade bars for 08:30–09:00 ET only from raw ticks. If those ticks are absent the status is `BLOCKED_INPUTS` (`BLOCKED_INPUTS.md`) and no bars are written. 09:30 stays the finder skip floor and is not a minimum bar count. The giveback counterfactual is `BLOCKED_INPUTS` when `bars10s` or a native REST quote tape is missing (`GIVEBACK_COUNTERFACTUAL.md`). Ultra Ratchet stays unarmed. The chandelier is untouched. Prior counts stay: 100 cells, 3 dollar-priced, 97 dollar BLOCKED, 1 hit (S001), 49 missing the 08:30 tape, 24 missing a SPY-gate record.
 
 Time-bar legend: `HIT` is the one observed generator receipt. `SAME_CLOCK` reuses that entry clock and adds no dollar. `FAIL` is a reference book whose first journal fill is 11:09:03 ET. `BLOCKED` has no tape or no gate record.
 
@@ -10,8 +12,8 @@ Missing codes:
 
 | Code | File |
 |---|---|
-| TAPE_0830 | raw tick tape 2026-10-02 08:30-09:00 ET (not in oct2_pack; bars10s_2026-10-02.csv.gz was omitted from the pack and the October 2 simulation starts at 09:00) |
-| BARS_EXIT | `C:\ATC\claude_harness\cf12_20261002\data\bars10s_2026-10-02.csv.gz` (sha256 e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5), omitted from the pack |
+| TAPE_0830 | raw trade ticks 2026-10-02 08:30:00-09:00:00 ET (clock field received_ts; trade price, not bid/ask; no tick file in oct2_pack) and/or `C:\ATC\claude_harness\cf12_20261002\data\bars10s_2026-10-02.csv.gz` (sha256 e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5; omitted from the pack; the October 2 simulation starts at 09:00; quote bars are not trade bars) |
+| BARS_EXIT | `C:\ATC\claude_harness\cf12_20261002\data\bars10s_2026-10-02.csv.gz` (sha256 e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5), omitted from the pack. Quote bars are not trade bars. |
 | PEAK | journal exit rows have no peak / MFE field |
 | SPY_LOG | no SPY refuse log; missing `C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V1.jsonl`, `C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V2.jsonl`, `C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V3.jsonl` |
 | SIGNALS | `C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V1.jsonl`, `C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V2.jsonl`, `C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V3.jsonl` |

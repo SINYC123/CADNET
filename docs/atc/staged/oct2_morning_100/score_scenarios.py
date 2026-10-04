@@ -18,15 +18,20 @@ from zoneinfo import ZoneInfo
 
 from rules_staged import (
     ARMED,
+    BARS10S_SHA256,
+    BARS10S_WIN,
     EXIT_LOOKS,
     FINDER_SKIP_BEFORE,
     FIRST_FILL_DEADLINE,
     FIRST_FILL_TARGET,
     HARNESS_NOTIONAL_DEFAULT,
     MISSING_TAPE,
+    SIGNALS_WIN,
     TREND_NOTIONAL,
+    ordinary_gates_held,
     spy_blocks_name,
     stage_forced_highest_conviction,
+    trend_notional_from_first_fill,
 )
 
 ET = ZoneInfo("America/New_York")
@@ -37,12 +42,7 @@ HERE = Path(__file__).resolve().parent
 DEFAULT_PACK = Path("/tmp/oct2_pack/oct2_pack")
 
 BARS_REL = r"bars10s_2026-10-02.csv.gz"
-BARS_WIN = r"C:\ATC\claude_harness\cf12_20261002\data\bars10s_2026-10-02.csv.gz"
-SIGNALS_WIN = (
-    r"C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V1.jsonl",
-    r"C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V2.jsonl",
-    r"C:\ATC\claude_harness\exit_full_20261002\D_signals\signals_V3.jsonl",
-)
+BARS_WIN = BARS10S_WIN
 
 PREMARKET = ("absent", "present")
 DEADLINES = ("935", "1030", "force_hc_1030")
@@ -349,7 +349,15 @@ def render_catalog(payload: dict) -> str:
     lines = [
         "# October 2 morning catalog — 100 staged cells",
         "",
-        "Draft only. `ARMED` is false. This file is the results table.",
+        "Draft only. `ARMED` is false. This file is the results table. Nothing here merges.",
+        "",
+        "Handoff S100: `build_bars10s_0830.py` writes 10s trade bars for 08:30–09:00 ET only from raw ticks. "
+        "If those ticks are absent the status is `BLOCKED_INPUTS` (`BLOCKED_INPUTS.md`) and no bars are written. "
+        "09:30 stays the finder skip floor and is not a minimum bar count. "
+        "The giveback counterfactual is `BLOCKED_INPUTS` when `bars10s` or a native REST quote tape is missing "
+        "(`GIVEBACK_COUNTERFACTUAL.md`). Ultra Ratchet stays unarmed. The chandelier is untouched. "
+        "Prior counts stay: 100 cells, 3 dollar-priced, 97 dollar BLOCKED, 1 hit (S001), "
+        "49 missing the 08:30 tape, 24 missing a SPY-gate record.",
         "",
         "Time-bar legend: `HIT` is the one observed generator receipt. "
         "`SAME_CLOCK` reuses that entry clock and adds no dollar. "
@@ -363,7 +371,7 @@ def render_catalog(payload: dict) -> str:
         "| Code | File |",
         "|---|---|",
         f"| TAPE_0830 | {MISSING_TAPE} |",
-        f"| BARS_EXIT | `{BARS_WIN}` (sha256 e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5), omitted from the pack |",
+        f"| BARS_EXIT | `{BARS_WIN}` (sha256 {BARS10S_SHA256}), omitted from the pack. Quote bars are not trade bars. |",
         "| PEAK | journal exit rows have no peak / MFE field |",
         f"| SPY_LOG | no SPY refuse log; missing {', '.join(f'`{p}`' for p in SIGNALS_WIN)} |",
         f"| SIGNALS | {', '.join(f'`{p}`' for p in SIGNALS_WIN)} |",
@@ -449,21 +457,21 @@ First October 2 journal fill: {payload['first_fill']['clock']} ET {payload['firs
 
 {c['same_clock']} other cells (premarket absent, SPY off for the strong-own-RVOL trend case) stay on this same entry clock. A {TREND_NOTIONAL:.0f} size, a different exit look, or the 10:30 forced-submit flag leaves the dollar cell BLOCKED. On this receipt the forced rule stays idle, because a sim entry is already on the book before 10:30.
 
-The generator receipt is the source of these four entries. NVDA and IWM are `[TREND-RAW]` MA2 names and the reason text has no RVOL multiple, so the SPY waiver stays closed for them. The only explicit RVOL in the pre-10:30 sample is SPCX at 09:59:10 ET (`RVOL=3.5x`), which is after 09:35 and before 10:30, and that row is a continuation name. The dollar difference between SPY on and SPY off is BLOCKED.
+The generator receipt is the source of these four entries. NVDA and IWM are `[TREND-RAW]` MA2 names and the reason text has no RVOL multiple, so the SPY waiver stays closed for them. The waiver opens only for an earnings/news-strength name that also has high own RVOL and trend, and only through 10:30. Ordinary names stay blocked. The only explicit RVOL in the pre-10:30 sample is SPCX at 09:59:10 ET (`RVOL=3.5x`), which is after 09:35 and before 10:30, and that row is a continuation name. The dollar difference between SPY on and SPY off is BLOCKED.
 
 ## Still blocked
 
-- **08:30–09:00 tape.** {c['blocked_tape']} cells, including the handoff cell {payload['handoff_id']}, need the hour so a name at 09:30 already has 60 minutes of bars. 09:30 remains the finder skip floor. Missing file: {MISSING_TAPE}. `rules_staged.EVAL_START` is 08:30 and the tape slot is empty. This run left that hour unbuilt.
+- **08:30–09:00 tape.** {c['blocked_tape']} cells, including the handoff cell {payload['handoff_id']}, need the hour so a name at 09:30 already has 60 minutes of bars. 09:30 remains the finder skip floor and is not a minimum bar count. Missing file: {MISSING_TAPE}. `rules_staged.EVAL_START` is 08:30. `build_bars10s_0830.py` builds that window only from raw trade ticks already in the pack. This checkout has none, so the handoff status is BLOCKED_INPUTS (`BLOCKED_INPUTS.md`) and no bars were written.
 - **SPY-on cells.** {c['blocked_spy']} cells. Missing file: a SPY-gate decision record, and the signal files {', '.join(SIGNALS_WIN)}. Midday, FIX-BA, strength, and C30 are unchanged in `rules_staged.GATES_HELD`.
 - **Exit giveback look.** Recorded giveback rows:
 {gb_lines}
-  Keep-peak, trend-keep-peak, and the recorded peak-lock keep 0.80 / take 0.90 are looks. Journal exits store no peak. Exit replay needs `{BARS_WIN}`. The look leaves the chandelier and Ultra Ratchet untouched.
+  Keep-peak, trend-keep-peak, and the recorded peak-lock keep 0.80 / take 0.90 are looks. Journal exits store no peak. The staged counterfactual (`giveback_counterfactual.py`, `GIVEBACK_COUNTERFACTUAL.md`) cites V1 NKE +227.40 at 11:15:25 ET and does not invent a peak. It stays BLOCKED_INPUTS while `{BARS_WIN}` or a native REST quote tape is missing. Quote bars are not trade bars. A stream-only BBO study cannot stand in for native REST quotes. The look leaves the chandelier and Ultra Ratchet untouched.
 - **Forced 10:30 submit.** Staged in `rules_staged.stage_forced_highest_conviction`. `ARMED` is {str(ARMED)}. On the journal book the rule is eligible (0 fills by 10:30). The name is BLOCKED. Missing files: {', '.join(SIGNALS_WIN)}.
-- **Trend size.** Staged trend notional is {TREND_NOTIONAL:.0f} from the first fill. The packaged harness default is {HARNESS_NOTIONAL_DEFAULT:.0f}. Measured October 2 fill notionals step up later on V1 and V2 and stay near 50k on V3. First `earn_trend` fill is {step['first_earn_trend']}. A later 100k fill on that lane is {step['later_earn_trend']}. Startup `ATC_SLOT_AM` on the 11:06 ET rows is 100000, and the first fills of the day are still about 50k. A 100k replay dollar is BLOCKED because `{BARS_REL}` is not in the pack.
+- **Trend size.** Staged trend notional is locked at {TREND_NOTIONAL:.0f} from the first fill (`trend_notional_from_first_fill`). The packaged harness default is {HARNESS_NOTIONAL_DEFAULT:.0f}, and that default is the wrong trend size. Measured October 2 fill notionals step up later on V1 and V2 and stay near 50k on V3. First `earn_trend` fill is {step['first_earn_trend']}. A later 100k fill on that lane is {step['later_earn_trend']}. Startup `ATC_SLOT_AM` on the 11:06 ET rows is 100000, and the first fills of the day are still about 50k. A resized 100k dollar stays BLOCKED because `{BARS_REL}` is not in the pack.
 
 ## How this was scored
 
-`score_scenarios.py` reads the unpacked pack, checks the three reference totals, counts journal fills against 09:35 and 10:30, and reads the packaged generator receipt. Cells that need the 08:30 tape stay BLOCKED. The script refuses to run when `rules_staged.ARMED` is true.
+`score_scenarios.py` reads the unpacked pack, checks the three reference totals, counts journal fills against 09:35 and 10:30, and reads the packaged generator receipt. Cells that need the 08:30 tape stay BLOCKED. `build_bars10s_0830.py` and `giveback_counterfactual.py` are stage-only and refuse to invent bars or peaks. The script refuses to run when `rules_staged.ARMED` is true.
 """
 
 
@@ -500,15 +508,37 @@ def main() -> int:
     if len(morning) < 1:
         raise SystemExit("generator receipt has no entry by 09:35; morning number not in the pack")
     by_1030 = demo_before(demo, FIRST_FILL_DEADLINE)
-    # Recorded 09:33 trend names have no RVOL multiple, so the waiver does not open.
+    # Ordinary MA2 stays blocked. The waiver is earnings/news-strength only.
     if spy_blocks_name(
         own_rvol_strong=False, trend_strong=True, minute=time(9, 33), lane="ma2"
     ) is not True:
         raise SystemExit("SPY waiver opened without own RVOL")
     if spy_blocks_name(
         own_rvol_strong=True, trend_strong=True, minute=time(9, 33), lane="ma2"
+    ) is not True:
+        raise SystemExit("SPY waiver opened for an ordinary MA2 name")
+    if spy_blocks_name(
+        own_rvol_strong=True,
+        trend_strong=True,
+        minute=time(9, 33),
+        lane="earn_trend",
+        earnings_or_news=True,
     ) is not False:
-        raise SystemExit("SPY waiver failed to open for a strong own-RVOL trend name")
+        raise SystemExit("SPY waiver failed to open for an earnings/news-strength name")
+    if spy_blocks_name(
+        own_rvol_strong=True,
+        trend_strong=True,
+        minute=time(12, 0),
+        lane="earn_trend",
+        earnings_or_news=True,
+    ) is not True:
+        raise SystemExit("SPY waiver opened after the 10:30 deadline")
+    if ordinary_gates_held() != ("midday", "FIX-BA", "strength", "C30"):
+        raise SystemExit("held gates changed")
+    if trend_notional_from_first_fill("earn_trend") != 100_000.0:
+        raise SystemExit("trend notional is not locked at 100000")
+    if trend_notional_from_first_fill("vwap_revert") == 100_000.0:
+        raise SystemExit("non-trend lane took the trend notional")
 
     # Journal path: forced rule is eligible and has no candidate file.
     journal_force = stage_forced_highest_conviction([], filled_by_deadline=False)

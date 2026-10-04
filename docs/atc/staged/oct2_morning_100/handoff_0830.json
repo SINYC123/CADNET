@@ -1,0 +1,39 @@
+{
+  "status": "BLOCKED_INPUTS",
+  "armed": false,
+  "day": "2026-10-02",
+  "eval_start": "08:30",
+  "finder_skip_before": "09:30",
+  "window_et": "08:30:00 inclusive to 09:00:00 exclusive",
+  "bar_seconds": 10,
+  "minimum_bar_count": null,
+  "bars_written": 0,
+  "quote_files_not_used_as_trade_bars": [],
+  "trade_files_outside_window": [],
+  "bars10s_present": [],
+  "checked_roots": [
+    {
+      "root": "/tmp/oct2_pack/oct2_pack",
+      "exists": false
+    },
+    {
+      "root": "/workspace/oct2_pack",
+      "exists": false
+    },
+    {
+      "root": "/workspace/oct2_pack/oct2_pack",
+      "exists": false
+    },
+    {
+      "root": "/workspace/docs/atc/staged/oct2_morning_100",
+      "exists": true
+    }
+  ],
+  "missing": [
+    "raw trade ticks 2026-10-02 08:30:00-09:00:00 ET (clock field received_ts; trade price, not bid/ask; no tick file in oct2_pack)",
+    "C:\\ATC\\claude_harness\\cf12_20261002\\data\\bars10s_2026-10-02.csv.gz sha256 e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5 pack-relative bars10s_2026-10-02.csv.gz"
+  ],
+  "missing_tape": "raw trade ticks 2026-10-02 08:30:00-09:00:00 ET (clock field received_ts; trade price, not bid/ask; no tick file in oct2_pack) and/or C:\\ATC\\claude_harness\\cf12_20261002\\data\\bars10s_2026-10-02.csv.gz (sha256 e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5; omitted from the pack; the October 2 simulation starts at 09:00; quote bars are not trade bars)",
+  "note": "09:30 is the finder skip floor, not the minimum bar count. Quote bars are not trade bars. No ticks were fabricated.",
+  "bars_omitted_from_status": true
+}

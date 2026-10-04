@@ -1617,7 +1617,35 @@
       "dollars": "BLOCKED",
       "dollar_source": "",
       "missing": "TAPE_0830",
-      "evidence": "raw tick tape 2026-10-02 08:30-09:00 ET (not in oct2_pack; bars10s_2026-10-02.csv.gz was omitted from the pack and the October 2 simulation starts at 09:00)"
+      "evidence": "raw trade ticks 2026-10-02 08:30:00-09:00:00 ET (clock field received_ts; trade price, not bid/ask; no tick file in oct2_pack) and/or C:\\ATC\\claude_harness\\cf12_20261002\\data\\bars10s_2026-10-02.csv.gz (sha256 e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5; omitted from the pack; the October 2 simulation starts at 09:00; quote bars are not trade bars)"
     }
-  ]
+  ],
+  "handoff_0830": {
+    "status": "BLOCKED_INPUTS",
+    "bars_written": 0,
+    "armed": false,
+    "window_et": "08:30:00 inclusive to 09:00:00 exclusive",
+    "minimum_bar_count": null,
+    "missing": [
+      "raw trade ticks 2026-10-02 08:30:00-09:00:00 ET (clock field received_ts; trade price, not bid/ask; no tick file in oct2_pack)",
+      "C:\\ATC\\claude_harness\\cf12_20261002\\data\\bars10s_2026-10-02.csv.gz sha256 e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5 pack-relative bars10s_2026-10-02.csv.gz"
+    ]
+  },
+  "giveback_counterfactual": {
+    "status": "BLOCKED_INPUTS",
+    "counterfactual_pl": "BLOCKED",
+    "peak": null,
+    "recorded": {
+      "arm": "V1",
+      "clock_et": "11:15:25",
+      "symbol": "NKE",
+      "pl": 227.4,
+      "pl_source": "journal exit pl 227.4 on rows_V1.jsonl",
+      "reason": "EARN TREND GIVEBACK",
+      "lane": "earn_trend",
+      "peak": null
+    },
+    "ultra_ratchet_armed": false,
+    "chandelier_untouched": true
+  }
 }
