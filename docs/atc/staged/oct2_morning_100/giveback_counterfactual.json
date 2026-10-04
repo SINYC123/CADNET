@@ -1,0 +1,45 @@
+{
+  "status": "BLOCKED_INPUTS",
+  "armed": false,
+  "day": "2026-10-02",
+  "counterfactual_pl": "BLOCKED",
+  "peak_invented": false,
+  "recorded_giveback": {
+    "arm": "V1",
+    "clock_et": "11:15:25",
+    "symbol": "NKE",
+    "pl": 227.4,
+    "pl_source": "journal exit pl 227.4 on rows_V1.jsonl",
+    "reason": "EARN TREND GIVEBACK",
+    "lane": "earn_trend",
+    "peak": null
+  },
+  "bars10s_present": [],
+  "bars10s_required": "C:\\ATC\\claude_harness\\cf12_20261002\\data\\bars10s_2026-10-02.csv.gz",
+  "bars10s_sha256": "e615fdcc3669651444e4274ec010a75bb2cd0a49ce288b18127457abb1447ea5",
+  "bars10s_pack_rel": "bars10s_2026-10-02.csv.gz",
+  "bars10s_are_quote_bars": true,
+  "quote_bars_are_not_trade_bars": true,
+  "native_rest_quotes_present": [],
+  "missing_rest_quotes": "native REST quote tape for 2026-10-02 (absent from this repo pack; the 31-file oct2_pack inventory has no quote capture; stream BBO / bars10s bid_o ask_o cannot stand in)",
+  "stream_bbo_cannot_stand_in_for_rest": true,
+  "ultra_ratchet_armed": false,
+  "chandelier_untouched": true,
+  "peak_lock_keep_recorded": 0.8,
+  "peak_lock_take_recorded": 0.9,
+  "checked_roots": [
+    {
+      "root": "/tmp/oct2_pack/oct2_pack",
+      "exists": false
+    },
+    {
+      "root": "/workspace/oct2_pack",
+      "exists": false
+    },
+    {
+      "root": "/workspace/oct2_pack/oct2_pack",
+      "exists": false
+    }
+  ],
+  "cells_affected": "keep_peak_look, trend_keep_peak_look, peak_lock_keep_80_look stay dollar BLOCKED"
+}
